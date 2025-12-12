@@ -1,10 +1,9 @@
 FROM runpod/worker-comfyui:5.5.0-base
 
 # --- tools for installing custom nodes ---
-USER root
+# НИЧЕГО не меняем USER, просто ставим git и создаём папку
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /ComfyUI/custom_nodes
-USER root   # базовый образ всё равно под root, оставим так
 
 # --- custom nodes ---
 
