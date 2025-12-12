@@ -2,12 +2,7 @@
 FROM runpod/worker-comfyui:5.5.0-base
 
 # install custom nodes into comfyui
-# 1) cg-use-everywhere
-RUN cd /ComfyUI/custom_nodes && \
-    git clone https://github.com/city96/ComfyUI-cg-use-everywhere.git
-# 2) ComfyUI-KJNodes
-RUN cd /ComfyUI/custom_nodes && \
-    git clone https://github.com/kjnodes/kjnodes-comfyui.git
+
 # 3) ComfyUI-VideoHelperSuite (VHS)
 RUN cd /ComfyUI/custom_nodes && \
     git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git
