@@ -1,21 +1,27 @@
 FROM runpod/worker-comfyui:5.5.0-base
 
-RUN apt-get update && apt-get install -y git curl unzip && rm -rf /var/lib/apt/lists/*
+# Инструменты
+RUN apt-get update && \
+    apt-get install -y git curl unzip && \
+    rm -rf /var/lib/apt/lists/*
+
+# Папка для кастомных нод
 RUN mkdir -p /ComfyUI/custom_nodes
 
-# VHS
+# --- ComfyUI-VideoHelperSuite (VHS) ---
 RUN cd /ComfyUI/custom_nodes && \
     git clone --depth 1 https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git
 
-# KJNodes — через ZIP (обход глюка RunPod)
+# --- ComfyUI-KJNodes (через codeload, самый стабильный способ) ---
 RUN cd /ComfyUI/custom_nodes && \
-    curl -L https://github.com/kjnodes/kjnodes-comfyui/archive/refs/heads/main.zip -o kj.zip && \
-    unzip kj.zip && \
-    mv kjnodes-comfyui-main kjnodes-comfyui && \
-    rm kj.zip
+    curl -L https://codeload.github.com/kijai/ComfyUI-KJNodes/zip/refs/heads/main -o kjnodes.zip && \
+    unzip kjnodes.zip && \
+    mv ComfyUI-KJNodes-main ComfyUI-KJNodes && \
+    rm kjnodes.zip
 
-# Essentials
+# --- ComfyUI Essentials ---
 RUN cd /ComfyUI/custom_nodes && \
     git clone --depth 1 https://github.com/cubiq/ComfyUI_essentials.git
 
+# --- пути к моделям ---
 COPY extra_model_paths.yaml /ComfyUI/extra_model_paths.yaml
