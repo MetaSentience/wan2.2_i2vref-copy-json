@@ -4,4 +4,4 @@ runpod-volume:
   vae: models/vae
   clip: models/text_encoders
   loras: models/loras
-  upscale_models: models/upscale_models  # для вашего 4xLSDIR.pth
+  upscale_models: models/upscale_models
