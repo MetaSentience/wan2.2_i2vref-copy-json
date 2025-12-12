@@ -1,15 +1,18 @@
 FROM runpod/worker-comfyui:5.5.0-base
 
-RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y git curl unzip && rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /ComfyUI/custom_nodes
 
-# VideoHelperSuite
+# VHS
 RUN cd /ComfyUI/custom_nodes && \
     git clone --depth 1 https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git
 
-# KJNodes — через GIT_TERMINAL_PROMPT=0
+# KJNodes — через ZIP (обход глюка RunPod)
 RUN cd /ComfyUI/custom_nodes && \
-    GIT_TERMINAL_PROMPT=0 git clone --depth 1 https://github.com/kjnodes/kjnodes-comfyui.git
+    curl -L https://github.com/kjnodes/kjnodes-comfyui/archive/refs/heads/main.zip -o kj.zip && \
+    unzip kj.zip && \
+    mv kjnodes-comfyui-main kjnodes-comfyui && \
+    rm kj.zip
 
 # Essentials
 RUN cd /ComfyUI/custom_nodes && \
