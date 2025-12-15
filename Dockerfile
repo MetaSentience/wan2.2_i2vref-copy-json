@@ -1,4 +1,9 @@
 FROM runpod/worker-comfyui:5.5.0-base
+# Triton, нужен SageAttention
+RUN pip install --no-cache-dir "triton>=3.0.0"
+
+# SageAttention 2.2.0 (SageAttention2++)
+RUN pip install --no-cache-dir "sageattention==2.2.0" --no-build-isolation
 
 # Инструменты
 RUN apt-get update && \
