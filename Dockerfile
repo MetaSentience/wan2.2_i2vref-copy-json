@@ -4,6 +4,8 @@ FROM runpod/worker-comfyui:5.5.0-base
 RUN apt-get update && \
     apt-get install -y git curl unzip && \
     rm -rf /var/lib/apt/lists/*
+# Установить OpenCV для Python
+RUN pip install --no-cache-dir opencv-python-headless imageio-ffmpeg
 
 # Папка для кастомных нод
 RUN mkdir -p /comfyui/custom_nodes
