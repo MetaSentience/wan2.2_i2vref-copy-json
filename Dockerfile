@@ -6,22 +6,22 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Папка для кастомных нод
-RUN mkdir -p /ComfyUI/custom_nodes
+RUN mkdir -p /comfyui/custom_nodes
 
 # --- ComfyUI-VideoHelperSuite (VHS) ---
-RUN cd /ComfyUI/custom_nodes && \
+RUN cd /comfyui/custom_nodes && \
     git clone --depth 1 https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git
 
 # --- ComfyUI-KJNodes (через codeload, самый стабильный способ) ---
-RUN cd /ComfyUI/custom_nodes && \
+RUN cd /comfyui/custom_nodes && \
     curl -L https://codeload.github.com/kijai/ComfyUI-KJNodes/zip/refs/heads/main -o kjnodes.zip && \
     unzip kjnodes.zip && \
     mv ComfyUI-KJNodes-main ComfyUI-KJNodes && \
     rm kjnodes.zip
 
 # --- ComfyUI Essentials ---
-RUN cd /ComfyUI/custom_nodes && \
+RUN cd /comfyui/custom_nodes && \
     git clone --depth 1 https://github.com/cubiq/ComfyUI_essentials.git
 
 # --- пути к моделям ---
-COPY extra_model_paths.yaml /ComfyUI/extra_model_paths.yaml
+COPY extra_model_paths.yaml /comfyui/extra_model_paths.yaml
