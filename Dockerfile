@@ -1,18 +1,11 @@
 FROM runpod/worker-comfyui:5.5.0-base
-# Triton, нужен SageAttention
-RUN pip install --no-cache-dir "triton>=3.0.0"
+python main.py --output-directory /runpod-volume/output
 
 # Инструменты
 RUN apt-get update && \
     apt-get install -y git curl unzip && \
     rm -rf /var/lib/apt/lists/*
 
-# Собрать SageAttention из исходников
-RUN git clone https://github.com/thu-ml/SageAttention.git /tmp/SageAttention && \
-    cd /tmp/SageAttention && \
-    EXT_PARALLEL=4 NVCC_APPEND_FLAGS="--threads 8" MAX_JOBS=32 python setup.py install && \
-    rm -rf /tmp/SageAttention
-    
 # Установить OpenCV для Python
 RUN pip install --no-cache-dir opencv-python-headless imageio-ffmpeg
 
