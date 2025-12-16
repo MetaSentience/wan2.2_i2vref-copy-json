@@ -1,5 +1,4 @@
 FROM runpod/worker-comfyui:5.5.0-base
-python main.py --output-directory /runpod-volume/output
 
 # Инструменты
 RUN apt-get update && \
